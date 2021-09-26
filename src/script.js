@@ -82,7 +82,7 @@ light2.add(pointLight3.position, 'z').min(-3).max(3).step(0.01)
 light2.add(pointLight3, 'intensity').min(-3).max(10).step(0.01)
 
 const light2Color = {
-    color: 0xff0000
+    color: 0x4056be
 }
 
 light2.addColor(light2Color, 'color')
@@ -145,15 +145,43 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
  * Animate
  */
 
+document.addEventListener('mousemove', onDocumentMouseMove)
+
+let mouseX = 0;
+let mouseY = 0;
+
+let targetX = 0;
+let targetY = 0;
+
+const windowX = window.innerWidth / 2;
+const windowY = window.innerHeight / 2;
+
+function onDocumentMouseMove(event) {
+    mouseX = (event.clientX - windowX);
+    mouseY = (event.clientY - windowY);
+}
+
+const updateSphere = (event) => {
+    sphere.position.y = window.scrollY * .005;
+}
+
+window.addEventListener('scroll', updateSphere);
+
 const clock = new THREE.Clock()
 
 const tick = () =>
 {
+    targetX = mouseX * .001
+    targetY = mouseY * .001
 
     const elapsedTime = clock.getElapsedTime()
 
     // Update objects
     sphere.rotation.y = .5 * elapsedTime
+
+    sphere.rotation.y += .5 * (targetX - sphere.rotation.y)
+    sphere.rotation.x += .05 * (targetY - sphere.rotation.x)
+    sphere.position.z += .05 * (targetY - sphere.rotation.x)
 
     // Update Orbital Controls
     // controls.update()
