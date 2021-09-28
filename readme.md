@@ -4,7 +4,7 @@ Messing around with Three.js as part of Gary Simon's [Youtube tutorial](https://
 
 <details>
 <summary>Three.js Starter Courtesy of Bruno Simon - click for more details</summary>
-# Three.js Starter
+
 Courtesy of Bruno Simon of https://threejs-journey.xyz/
 
 ## Setup
