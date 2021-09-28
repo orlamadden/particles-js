@@ -107,28 +107,37 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
 renderer.setClearColor(new THREE.Color('#21282a'), 1);
 
+// Mouse movement
+document.addEventListener('mousemove', moveParticles)
+
+let mouseX = 0, mouseY = 0, flag = 0;
+
+function moveParticles(e) {
+  mouseX = e.clientX / canvas.width * 20 - 10;
+  mouseY = e.clientY / canvas.height * 20 - 10;
+  flag = 1;
+}
+
 /**
  * Animate
  */
 
 const clock = new THREE.Clock()
 
-const tick = () =>
-{
+const tick = () => {
 
-    const elapsedTime = clock.getElapsedTime()
-
-    // Update objects
-    sphere.rotation.y = .5 * elapsedTime
-
-    // Update Orbital Controls
-    // controls.update()
-
-    // Render
-    renderer.render(scene, camera)
-
-    // Call tick again on the next frame
-    window.requestAnimationFrame(tick)
-}
+    // code courtesy of nishit Sarvaiya https://www.youtube.com/watch?v=dLYMzNmILQA&t=17s
+    const deltaTime = clock.getDelta();
+    
+    if(flag == 0) {
+      particlesMesh.rotation.y += deltaTime * 0.05;
+    }
+    particlesMesh.rotation.x -= mouseY * deltaTime * 0.008;
+    particlesMesh.rotation.y -= mouseX * deltaTime * 0.008;
+  
+    renderer.render(scene, camera);
+  
+    window.requestAnimationFrame(tick);
+  };
 
 tick()
