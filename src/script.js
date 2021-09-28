@@ -128,10 +128,12 @@ const tick = () => {
 
     // code courtesy of nishit Sarvaiya https://www.youtube.com/watch?v=dLYMzNmILQA&t=17s
     const deltaTime = clock.getDelta();
+    const elapsedTime = clock.getElapsedTime();
     
     if(flag == 0) {
       particlesMesh.rotation.y += deltaTime * 0.05;
     }
+    sphere.rotation.y = elapsedTime * .5;
     particlesMesh.rotation.x -= mouseY * deltaTime * 0.008;
     particlesMesh.rotation.y -= mouseX * deltaTime * 0.008;
   
